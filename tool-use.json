@@ -1,0 +1,41 @@
+{
+  "session_id": "78a97da6-1209-496a-ac1d-afbcd469e463",
+  "transcript_path": "C:\\Users\\dscot\\.claude\\projects\\C--projects-Claude-Code-Masterclass-starter-project-Pocket-Heist\\78a97da6-1209-496a-ac1d-afbcd469e463.jsonl",
+  "cwd": "C:\\projects\\Claude-Code-Masterclass-starter-project\\Pocket_Heist",
+  "permission_mode": "default",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Edit",
+  "tool_input": {
+    "file_path": "C:\\projects\\Claude-Code-Masterclass-starter-project\\Pocket_Heist\\app\\(public)\\page.tsx",
+    "old_string": "        <div>Every great heist begins with a plan.</div>",
+    "new_string": "        <div>Plan the job. Run the crew. Take what&apos;s yours.</div>",
+    "replace_all": false
+  },
+  "tool_response": {
+    "filePath": "C:\\projects\\Claude-Code-Masterclass-starter-project\\Pocket_Heist\\app\\(public)\\page.tsx",
+    "oldString": "        <div>Every great heist begins with a plan.</div>",
+    "newString": "        <div>Plan the job. Run the crew. Take what&apos;s yours.</div>",
+    "originalFile": "// this page should be used only as a splash page to decide where a user should be navigated to\n// when logged in --> to /heists\n// when not logged in --> to /login\n\nimport { Clock8 } from \"lucide-react\";\n\nexport default function Home() {\n  return (\n    <div className=\"center-content\">\n      <div className=\"page-content\">\n        <h1>\n          P<Clock8 className=\"logo\" strokeWidth={2.75} />\n          cket Heist\n        </h1>\n        <div>Every great heist begins with a plan.</div>\n        <div className=\"mt-6 space-y-2 text-sm text-gray-400 max-w-m text-center\">\n          <p>\n            Welcome to Pocket Heist — your hub for sneaky office adventures.\n          </p>\n          <p>\n            Plan your next mission, assign tasks to your crew, and keep tabs on\n            every heist in progress.\n          </p>\n          <p>Ready to cause some chaos? Let&apos;s get started.</p>\n        </div>\n      </div>\n    </div>\n  );\n}\n",
+    "structuredPatch": [
+      {
+        "oldStart": 12,
+        "oldLines": 7,
+        "newStart": 12,
+        "newLines": 7,
+        "lines": [
+          "           P<Clock8 className=\"logo\" strokeWidth={2.75} />",
+          "           cket Heist",
+          "         </h1>",
+          "-        <div>Every great heist begins with a plan.</div>",
+          "+        <div>Plan the job. Run the crew. Take what&apos;s yours.</div>",
+          "         <div className=\"mt-6 space-y-2 text-sm text-gray-400 max-w-m text-center\">",
+          "           <p>",
+          "             Welcome to Pocket Heist — your hub for sneaky office adventures."
+        ]
+      }
+    ],
+    "userModified": false,
+    "replaceAll": false
+  },
+  "tool_use_id": "toolu_017vqtrm86589qN1ERvtgu1n"
+}

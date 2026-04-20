@@ -12,7 +12,7 @@ export default function Home() {
           P<Clock8 className="logo" strokeWidth={2.75} />
           cket Heist
         </h1>
-        <div>Tiny missions. Big office mischief.</div>
+        <div>Plan the job. Run the crew. Take what&apos;s yours.</div>
         <div className="mt-6 space-y-2 text-sm text-gray-400 max-w-m text-center">
           <p>
             Welcome to Pocket Heist — your hub for sneaky office adventures.
