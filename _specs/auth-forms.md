@@ -44,7 +44,7 @@ N/A
 
 ## Open Questions
 
-- Should the two forms share a common `AuthForm` component, or remain as separate page-level implementations? No
+- Should the two forms share a common `AuthForm` component, or remain as separate page-level implementations? Separate pages.
 - Should there be any basic client-side validation (e.g. required fields) in a future iteration? yes
 
 ## Testing Guidelines

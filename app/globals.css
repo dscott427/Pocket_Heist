@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "../app/**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";
 
 /* theme colours */
 @theme {
@@ -53,4 +55,33 @@ svg.logo {
 /* button */
 .btn {
   @apply px-4 py-2 rounded-lg font-semibold text-sm text-dark bg-primary hover:bg-secondary transition-colors duration-200;
+}
+
+/* auth forms */
+.auth-form {
+  @apply flex flex-col gap-5 w-full max-w-sm mx-auto mt-6;
+}
+.form-field {
+  @apply flex flex-col gap-1;
+}
+.form-label {
+  @apply text-sm font-medium text-body;
+}
+.form-input {
+  @apply w-full px-3 py-2 rounded-lg bg-lighter border border-lighter text-heading text-sm focus:outline-none focus:border-primary;
+}
+.password-wrapper {
+  @apply relative;
+}
+.password-toggle {
+  @apply absolute right-3 top-1/2 -translate-y-1/2 text-body hover:text-heading transition-colors;
+}
+.form-submit {
+  @apply w-full px-4 py-2 rounded-lg font-semibold text-sm text-dark bg-primary hover:bg-secondary transition-colors duration-200 mt-2;
+}
+.form-switch {
+  @apply text-center text-sm text-body mt-2;
+}
+.form-switch a {
+  @apply text-primary hover:text-secondary transition-colors;
 }

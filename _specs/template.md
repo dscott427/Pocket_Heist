@@ -19,7 +19,7 @@ figma_component (if used): <figma-component-name>
 
 ## Possible Edge Cases
 
-- ..
+- ...
 
 ## Acceptance Criteria
 
