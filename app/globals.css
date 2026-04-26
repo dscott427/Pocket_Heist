@@ -85,3 +85,6 @@ svg.logo {
 .form-switch a {
   @apply text-primary hover:text-secondary transition-colors;
 }
+.form-error {
+  @apply text-sm text-error text-center;
+}

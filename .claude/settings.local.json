@@ -1,5 +1,15 @@
 {
   "permissions": {
-    "allow": ["WebSearch", "Bash(gitinit)", "Bash(switch:*)"]
+    "allow": [
+      "WebSearch",
+      "Bash(gitinit)",
+      "Bash(switch:*)",
+      "mcp__firebase__firebase_create_project",
+      "mcp__firebase__firebase_list_projects",
+      "mcp__firebase__firebase_create_app",
+      "mcp__firebase__firebase_update_environment",
+      "Bash(firebase deploy *)",
+      "mcp__context7__query-docs"
+    ]
   }
 }

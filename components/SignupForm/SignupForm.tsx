@@ -3,15 +3,39 @@
 import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/lib/AuthContext'
+import { FirebaseError } from 'firebase/app'
+
+const errorMessages: Record<string, string> = {
+  'auth/email-already-in-use': 'An account with this email already exists.',
+  'auth/invalid-email': 'Invalid email address.',
+  'auth/weak-password': 'Password must be at least 6 characters.',
+}
 
 export default function SignupForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const { signUp } = useAuth()
+  const router = useRouter()
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    console.log({ email, password })
+    setError('')
+    setLoading(true)
+    try {
+      await signUp(email, password)
+      router.push('/heists')
+    } catch (err) {
+      if (err instanceof FirebaseError) {
+        setError(errorMessages[err.code] ?? 'Something went wrong. Please try again.')
+      }
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -27,6 +51,7 @@ export default function SignupForm() {
               className="form-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
           <div className="form-field">
@@ -38,6 +63,7 @@ export default function SignupForm() {
                 className="form-input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <button
                 type="button"
@@ -49,7 +75,10 @@ export default function SignupForm() {
               </button>
             </div>
           </div>
-          <button type="submit" className="form-submit">Sign Up</button>
+          {error && <p className="form-error">{error}</p>}
+          <button type="submit" className="form-submit" disabled={loading}>
+            {loading ? 'Creating account…' : 'Sign Up'}
+          </button>
         </form>
         <p className="form-switch">
           Already have an account? <Link href="/login">Log in</Link>

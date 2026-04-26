@@ -15,3 +15,15 @@
 svg.logo {
   display: inline-block;
 }
+
+.navActions {
+  @apply flex items-center gap-3;
+}
+
+.createBtn {
+  @apply px-4 py-2 rounded-lg font-semibold text-sm text-white bg-primary hover:bg-secondary transition-colors duration-200 flex items-center gap-1.5;
+}
+
+.signOutBtn {
+  @apply px-4 py-2 rounded-lg font-semibold text-sm text-body hover:text-heading border border-lighter hover:border-body transition-colors duration-200 flex items-center gap-1.5;
+}

@@ -1,41 +1,22 @@
 {
-  "session_id": "78a97da6-1209-496a-ac1d-afbcd469e463",
-  "transcript_path": "C:\\Users\\dscot\\.claude\\projects\\C--projects-Claude-Code-Masterclass-starter-project-Pocket-Heist\\78a97da6-1209-496a-ac1d-afbcd469e463.jsonl",
+  "session_id": "94eeb31a-333d-4f0d-985b-a948c2ba12ae",
+  "transcript_path": "C:\\Users\\dscot\\.claude\\projects\\C--projects-Claude-Code-Masterclass-starter-project-Pocket-Heist\\94eeb31a-333d-4f0d-985b-a948c2ba12ae.jsonl",
   "cwd": "C:\\projects\\Claude-Code-Masterclass-starter-project\\Pocket_Heist",
-  "permission_mode": "default",
+  "permission_mode": "acceptEdits",
   "hook_event_name": "PostToolUse",
-  "tool_name": "Edit",
+  "tool_name": "Write",
   "tool_input": {
-    "file_path": "C:\\projects\\Claude-Code-Masterclass-starter-project\\Pocket_Heist\\app\\(public)\\page.tsx",
-    "old_string": "        <div>Every great heist begins with a plan.</div>",
-    "new_string": "        <div>Plan the job. Run the crew. Take what&apos;s yours.</div>",
-    "replace_all": false
+    "file_path": "C:\\projects\\Claude-Code-Masterclass-starter-project\\Pocket_Heist\\tests\\components\\ProtectedLayout.test.tsx",
+    "content": "import { render, screen, waitFor } from '@testing-library/react'\nimport { describe, it, expect, vi, beforeEach } from 'vitest'\nimport ProtectedLayout from '@/components/ProtectedLayout'\n\nconst mockUseAuth = vi.fn()\nconst mockReplace = vi.fn()\n\nvi.mock('@/lib/AuthContext', () => ({\n  useAuth: () => mockUseAuth(),\n}))\n\nvi.mock('next/navigation', () => ({\n  useRouter: () => ({ replace: mockReplace, push: vi.fn() }),\n}))\n\ndescribe('ProtectedLayout', () => {\n  beforeEach(() => {\n    vi.clearAllMocks()\n  })\n\n  it('renders nothing while auth state is loading', () => {\n    mockUseAuth.mockReturnValue({ user: null, loading: true })\n    const { container } = render(\n      <ProtectedLayout><div>Protected content</div></ProtectedLayout>\n    )\n    expect(container.firstChild).toBeNull()\n    expect(screen.queryByText('Protected content')).not.toBeInTheDocument()\n  })\n\n  it('renders children when the user is authenticated', () => {\n    mockUseAuth.mockReturnValue({ user: { uid: 'abc123' }, loading: false })\n    render(<ProtectedLayout><div>Protected content</div></ProtectedLayout>)\n    expect(screen.getByText('Protected content')).toBeInTheDocument()\n  })\n\n  it('redirects to /login when the user is not authenticated', async () => {\n    mockUseAuth.mockReturnValue({ user: null, loading: false })\n    render(<ProtectedLayout><div>Protected content</div></ProtectedLayout>)\n    await waitFor(() => expect(mockReplace).toHaveBeenCalledWith('/login'))\n    expect(screen.queryByText('Protected content')).not.toBeInTheDocument()\n  })\n})\n"
   },
   "tool_response": {
-    "filePath": "C:\\projects\\Claude-Code-Masterclass-starter-project\\Pocket_Heist\\app\\(public)\\page.tsx",
-    "oldString": "        <div>Every great heist begins with a plan.</div>",
-    "newString": "        <div>Plan the job. Run the crew. Take what&apos;s yours.</div>",
-    "originalFile": "// this page should be used only as a splash page to decide where a user should be navigated to\n// when logged in --> to /heists\n// when not logged in --> to /login\n\nimport { Clock8 } from \"lucide-react\";\n\nexport default function Home() {\n  return (\n    <div className=\"center-content\">\n      <div className=\"page-content\">\n        <h1>\n          P<Clock8 className=\"logo\" strokeWidth={2.75} />\n          cket Heist\n        </h1>\n        <div>Every great heist begins with a plan.</div>\n        <div className=\"mt-6 space-y-2 text-sm text-gray-400 max-w-m text-center\">\n          <p>\n            Welcome to Pocket Heist — your hub for sneaky office adventures.\n          </p>\n          <p>\n            Plan your next mission, assign tasks to your crew, and keep tabs on\n            every heist in progress.\n          </p>\n          <p>Ready to cause some chaos? Let&apos;s get started.</p>\n        </div>\n      </div>\n    </div>\n  );\n}\n",
-    "structuredPatch": [
-      {
-        "oldStart": 12,
-        "oldLines": 7,
-        "newStart": 12,
-        "newLines": 7,
-        "lines": [
-          "           P<Clock8 className=\"logo\" strokeWidth={2.75} />",
-          "           cket Heist",
-          "         </h1>",
-          "-        <div>Every great heist begins with a plan.</div>",
-          "+        <div>Plan the job. Run the crew. Take what&apos;s yours.</div>",
-          "         <div className=\"mt-6 space-y-2 text-sm text-gray-400 max-w-m text-center\">",
-          "           <p>",
-          "             Welcome to Pocket Heist — your hub for sneaky office adventures."
-        ]
-      }
-    ],
-    "userModified": false,
-    "replaceAll": false
+    "type": "create",
+    "filePath": "C:\\projects\\Claude-Code-Masterclass-starter-project\\Pocket_Heist\\tests\\components\\ProtectedLayout.test.tsx",
+    "content": "import { render, screen, waitFor } from '@testing-library/react'\nimport { describe, it, expect, vi, beforeEach } from 'vitest'\nimport ProtectedLayout from '@/components/ProtectedLayout'\n\nconst mockUseAuth = vi.fn()\nconst mockReplace = vi.fn()\n\nvi.mock('@/lib/AuthContext', () => ({\n  useAuth: () => mockUseAuth(),\n}))\n\nvi.mock('next/navigation', () => ({\n  useRouter: () => ({ replace: mockReplace, push: vi.fn() }),\n}))\n\ndescribe('ProtectedLayout', () => {\n  beforeEach(() => {\n    vi.clearAllMocks()\n  })\n\n  it('renders nothing while auth state is loading', () => {\n    mockUseAuth.mockReturnValue({ user: null, loading: true })\n    const { container } = render(\n      <ProtectedLayout><div>Protected content</div></ProtectedLayout>\n    )\n    expect(container.firstChild).toBeNull()\n    expect(screen.queryByText('Protected content')).not.toBeInTheDocument()\n  })\n\n  it('renders children when the user is authenticated', () => {\n    mockUseAuth.mockReturnValue({ user: { uid: 'abc123' }, loading: false })\n    render(<ProtectedLayout><div>Protected content</div></ProtectedLayout>)\n    expect(screen.getByText('Protected content')).toBeInTheDocument()\n  })\n\n  it('redirects to /login when the user is not authenticated', async () => {\n    mockUseAuth.mockReturnValue({ user: null, loading: false })\n    render(<ProtectedLayout><div>Protected content</div></ProtectedLayout>)\n    await waitFor(() => expect(mockReplace).toHaveBeenCalledWith('/login'))\n    expect(screen.queryByText('Protected content')).not.toBeInTheDocument()\n  })\n})\n",
+    "structuredPatch": [],
+    "originalFile": null,
+    "userModified": false
   },
-  "tool_use_id": "toolu_017vqtrm86589qN1ERvtgu1n"
+  "tool_use_id": "toolu_011FfmnfxTGkLAyusrvyUMJz",
+  "duration_ms": 24
 }
