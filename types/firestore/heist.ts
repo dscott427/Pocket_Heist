@@ -1,4 +1,4 @@
-import { DocumentData, FieldValue, QueryDocumentSnapshot } from 'firebase/firestore';
+import { DocumentData, FieldValue, QueryDocumentSnapshot, Timestamp } from 'firebase/firestore';
 
 export type HeistStatus = 'success' | 'failure' | null;
 
@@ -10,6 +10,7 @@ export interface Heist {
   createdByCodename: string;
   assignedTo: string;
   assignedToCodename: string;
+  createdAt: Date;
   deadline: Date;
   finalStatus: HeistStatus;
 }
@@ -21,7 +22,8 @@ export interface CreateHeistInput {
   createdByCodename: string;
   assignedTo: string;
   assignedToCodename: string;
-  deadline: FieldValue;
+  createdAt: FieldValue;
+  deadline: Timestamp;
   finalStatus: null;
 }
 
@@ -40,6 +42,7 @@ export const heistConverter = {
   fromFirestore: (snapshot: QueryDocumentSnapshot): Heist => ({
     id: snapshot.id,
     ...snapshot.data(),
+    createdAt: snapshot.data().createdAt?.toDate(),
     deadline: snapshot.data().deadline?.toDate(),
   } as Heist),
 };

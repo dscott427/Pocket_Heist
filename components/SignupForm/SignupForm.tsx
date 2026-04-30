@@ -4,7 +4,10 @@ import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { doc, setDoc } from 'firebase/firestore'
 import { useAuth } from '@/lib/AuthContext'
+import { db } from '@/lib/firebase'
+import { COLLECTIONS } from '@/types/firestore'
 import { FirebaseError } from 'firebase/app'
 
 const errorMessages: Record<string, string> = {
@@ -15,6 +18,7 @@ const errorMessages: Record<string, string> = {
 
 export default function SignupForm() {
   const [email, setEmail] = useState('')
+  const [codename, setCodename] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
@@ -27,7 +31,11 @@ export default function SignupForm() {
     setError('')
     setLoading(true)
     try {
-      await signUp(email, password)
+      const credential = await signUp(email, password)
+      await setDoc(doc(db, COLLECTIONS.USERS, credential.user.uid), {
+        uid: credential.user.uid,
+        codename,
+      })
       router.push('/heists')
     } catch (err) {
       if (err instanceof FirebaseError) {
@@ -51,6 +59,17 @@ export default function SignupForm() {
               className="form-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-field">
+            <label htmlFor="codename" className="form-label">Codename</label>
+            <input
+              id="codename"
+              type="text"
+              className="form-input"
+              value={codename}
+              onChange={(e) => setCodename(e.target.value)}
               required
             />
           </div>

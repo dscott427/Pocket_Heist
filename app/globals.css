@@ -88,3 +88,6 @@ svg.logo {
 .form-error {
   @apply text-sm text-error text-center;
 }
+.form-success {
+  @apply text-sm text-success text-center;
+}

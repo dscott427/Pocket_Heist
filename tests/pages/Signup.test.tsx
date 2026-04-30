@@ -5,6 +5,7 @@ import SignupForm from '@/components/SignupForm'
 
 const mockSignUp = vi.fn()
 const mockPush = vi.fn()
+const mockSetDoc = vi.fn()
 
 vi.mock('@/lib/AuthContext', () => ({
   useAuth: () => ({ signUp: mockSignUp }),
@@ -12,6 +13,15 @@ vi.mock('@/lib/AuthContext', () => ({
 
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: mockPush, replace: vi.fn() }),
+}))
+
+vi.mock('@/lib/firebase', () => ({
+  db: {},
+}))
+
+vi.mock('firebase/firestore', () => ({
+  doc: vi.fn(() => ({})),
+  setDoc: (...args: unknown[]) => mockSetDoc(...args),
 }))
 
 vi.mock('firebase/app', () => {
@@ -26,14 +36,19 @@ vi.mock('firebase/app', () => {
   return { FirebaseError }
 })
 
-describe('SignupForm', () => {
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
+const mockCredential = { user: { uid: 'test-uid-123' } }
 
-  it('renders email field, password field, and submit button', () => {
+beforeEach(() => {
+  vi.clearAllMocks()
+  mockSignUp.mockResolvedValue(mockCredential)
+  mockSetDoc.mockResolvedValue(undefined)
+})
+
+describe('SignupForm', () => {
+  it('renders email, codename, password fields and submit button', () => {
     render(<SignupForm />)
     expect(screen.getByLabelText('Email')).toBeInTheDocument()
+    expect(screen.getByLabelText('Codename')).toBeInTheDocument()
     expect(screen.getByLabelText('Password')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /sign up/i })).toBeInTheDocument()
   })
@@ -53,13 +68,27 @@ describe('SignupForm', () => {
   })
 
   it('redirects to /heists on successful signup', async () => {
-    mockSignUp.mockResolvedValueOnce(undefined)
     const user = userEvent.setup()
     render(<SignupForm />)
     await user.type(screen.getByLabelText('Email'), 'newuser@example.com')
+    await user.type(screen.getByLabelText('Codename'), 'ShadowFox')
     await user.type(screen.getByLabelText('Password'), 'mypassword')
     await user.click(screen.getByRole('button', { name: /sign up/i }))
     await waitFor(() => expect(mockPush).toHaveBeenCalledWith('/heists'))
+  })
+
+  it('writes a user document to Firestore with uid and codename on success', async () => {
+    const user = userEvent.setup()
+    render(<SignupForm />)
+    await user.type(screen.getByLabelText('Email'), 'newuser@example.com')
+    await user.type(screen.getByLabelText('Codename'), 'ShadowFox')
+    await user.type(screen.getByLabelText('Password'), 'mypassword')
+    await user.click(screen.getByRole('button', { name: /sign up/i }))
+    await waitFor(() => expect(mockSetDoc).toHaveBeenCalledTimes(1))
+    expect(mockSetDoc).toHaveBeenCalledWith(
+      expect.anything(),
+      { uid: 'test-uid-123', codename: 'ShadowFox' }
+    )
   })
 
   it('shows an error when the email is already in use', async () => {
@@ -68,6 +97,7 @@ describe('SignupForm', () => {
     const user = userEvent.setup()
     render(<SignupForm />)
     await user.type(screen.getByLabelText('Email'), 'existing@example.com')
+    await user.type(screen.getByLabelText('Codename'), 'Ghost')
     await user.type(screen.getByLabelText('Password'), 'password123')
     await user.click(screen.getByRole('button', { name: /sign up/i }))
     await waitFor(() =>
@@ -81,6 +111,7 @@ describe('SignupForm', () => {
     const user = userEvent.setup()
     render(<SignupForm />)
     await user.type(screen.getByLabelText('Email'), 'user@example.com')
+    await user.type(screen.getByLabelText('Codename'), 'Ghost')
     await user.type(screen.getByLabelText('Password'), '123')
     await user.click(screen.getByRole('button', { name: /sign up/i }))
     await waitFor(() =>
@@ -93,6 +124,7 @@ describe('SignupForm', () => {
     const user = userEvent.setup()
     render(<SignupForm />)
     await user.type(screen.getByLabelText('Email'), 'user@example.com')
+    await user.type(screen.getByLabelText('Codename'), 'Ghost')
     await user.type(screen.getByLabelText('Password'), 'password123')
     await user.click(screen.getByRole('button', { name: /sign up/i }))
     expect(screen.getByRole('button', { name: /creating account/i })).toBeDisabled()

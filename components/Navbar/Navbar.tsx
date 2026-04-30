@@ -1,6 +1,6 @@
 'use client'
 
-import { Clock8, Plus, LogOut } from "lucide-react";
+import { Clock8, Plus, LogOut, Fingerprint } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/AuthContext";
@@ -32,6 +32,12 @@ export default function Navbar() {
             <Link href="/heists/create" className={styles.createBtn}>
               <Plus size={14} strokeWidth={2.75} />
               Create New Heist
+            </Link>
+          </li>
+          <li>
+            <Link href="/profile" className={styles.signOutBtn}>
+              <Fingerprint size={14} strokeWidth={2.75} />
+              My Codename
             </Link>
           </li>
           <li>
