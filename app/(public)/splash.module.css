@@ -1,0 +1,190 @@
+@reference "../globals.css";
+
+.wrapper {
+  @apply relative flex flex-col items-center justify-center min-h-lvh overflow-hidden;
+  background: var(--color-dark);
+}
+
+/* dot grid background */
+.grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(194, 122, 255, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+/* radial glow from top-center */
+.glow {
+  position: absolute;
+  top: -15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 700px;
+  background: radial-gradient(
+    ellipse at 50% 30%,
+    rgba(194, 122, 255, 0.18) 0%,
+    rgba(251, 100, 182, 0.08) 40%,
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+/* decorative corner brackets */
+.cornerTl,
+.cornerBr {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  opacity: 0.25;
+}
+.cornerTl {
+  top: 2rem;
+  left: 2rem;
+  border-top: 1.5px solid var(--color-primary);
+  border-left: 1.5px solid var(--color-primary);
+}
+.cornerBr {
+  bottom: 2rem;
+  right: 2rem;
+  border-bottom: 1.5px solid var(--color-secondary);
+  border-right: 1.5px solid var(--color-secondary);
+}
+
+/* content container */
+.content {
+  @apply relative flex flex-col items-center text-center;
+  z-index: 10;
+  max-width: 700px;
+  padding: 2rem 1.5rem;
+}
+
+/* badge */
+.badge {
+  @apply flex items-center gap-2;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  border: 1px solid rgba(194, 122, 255, 0.28);
+  border-radius: 100px;
+  padding: 0.375rem 1.125rem;
+  margin-bottom: 2.25rem;
+  animation: fadeUp 0.7s 0.05s ease both;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  box-shadow: 0 0 7px var(--color-primary);
+  flex-shrink: 0;
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+/* title */
+.title {
+  @apply relative flex items-center justify-center;
+  font-size: clamp(3rem, 9vw, 5.75rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.7s 0.15s ease both;
+}
+
+.titleText {
+  background: linear-gradient(130deg, var(--color-primary) 20%, var(--color-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.titleIcon {
+  color: var(--color-primary);
+  filter: drop-shadow(0 0 8px rgba(194, 122, 255, 0.6));
+}
+
+/* tagline */
+.tagline {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-heading);
+  letter-spacing: 0.01em;
+  margin-bottom: 1rem;
+  animation: fadeUp 0.7s 0.25s ease both;
+}
+
+/* description */
+.description {
+  font-size: 0.9375rem;
+  color: var(--color-body);
+  line-height: 1.75;
+  max-width: 460px;
+  margin-bottom: 2.75rem;
+  animation: fadeUp 0.7s 0.35s ease both;
+}
+
+/* CTA group */
+.actions {
+  @apply flex flex-col items-center gap-4;
+  animation: fadeUp 0.7s 0.45s ease both;
+}
+
+.registerBtn {
+  @apply font-semibold text-sm text-dark bg-primary transition-colors duration-200;
+  font-size: 0.9375rem;
+  padding: 0.8125rem 2.75rem;
+  border-radius: 100px;
+  box-shadow: 0 0 22px rgba(194, 122, 255, 0.38);
+  transition: background-color 200ms, box-shadow 0.25s ease, transform 0.15s ease;
+}
+
+.registerBtn:hover {
+  @apply bg-secondary;
+  box-shadow: 0 0 38px rgba(251, 100, 182, 0.5);
+  transform: translateY(-2px);
+}
+
+.loginHint {
+  font-size: 0.875rem;
+  color: var(--color-body);
+}
+
+.loginHint a {
+  color: var(--color-primary);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.loginHint a:hover {
+  color: var(--color-secondary);
+}
+
+/* divider rule */
+.divider {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(194, 122, 255, 0.3), transparent);
+  margin: 0 auto 2.75rem;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
