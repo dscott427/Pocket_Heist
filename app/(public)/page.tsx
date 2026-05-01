@@ -1,27 +1,51 @@
-// this page should be used only as a splash page to decide where a user should be navigated to
-// when logged in --> to /heists
-// when not logged in --> to /login
-
+import Link from "next/link";
 import { Clock8 } from "lucide-react";
+import styles from "./splash.module.css";
 
 export default function Home() {
   return (
-    <div className="center-content">
-      <div className="page-content">
-        <h1>
-          P<Clock8 className="logo" strokeWidth={2.75} />
-          cket Heist
+    <div className={styles.wrapper}>
+      <div className={styles.grid} />
+      <div className={styles.glow} />
+      <div className={styles.cornerTl} />
+      <div className={styles.cornerBr} />
+
+      <div className={styles.content}>
+        <span className={styles.badge}>
+          <span className={styles.badgeDot} />
+          Mission Control
+        </span>
+
+        <h1 className={styles.title}>
+          <span className={styles.titleText}>P</span>
+          <Clock8
+            className={`logo ${styles.titleIcon}`}
+            strokeWidth={2.75}
+            size="1em"
+          />
+          <span className={styles.titleText}>cket Heist</span>
         </h1>
-        <div>Tiny missions. Big office mischief.</div>
-        <div className="mt-6 space-y-2 text-sm text-gray-400 max-w-m text-center">
-          <p>
-            Welcome to Pocket Heist — your hub for sneaky office adventures.
+
+        <p className={styles.tagline}>
+          Plan the job. Run the crew. Take what&apos;s yours.
+        </p>
+
+        <div className={styles.divider} />
+
+        <p className={styles.description}>
+          Your command center for pulling off the perfect office heist.
+          Organize missions, assign your crew, and track every move — all in one
+          place.
+        </p>
+
+        <div className={styles.actions}>
+          <Link href="/signup" className={styles.registerBtn}>
+            Register
+          </Link>
+          <p className={styles.loginHint}>
+            Already have an account?{" "}
+            <Link href="/login">Log in</Link>
           </p>
-          <p>
-            Plan your next mission, assign tasks to your crew, and keep tabs on
-            every heist in progress.
-          </p>
-          <p>Ready to cause some chaos? Let&apos;s get started.</p>
         </div>
       </div>
     </div>
