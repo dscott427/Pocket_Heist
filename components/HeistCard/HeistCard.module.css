@@ -1,0 +1,67 @@
+@reference "../../app/globals.css";
+
+.cardLink {
+  @apply block no-underline text-inherit;
+}
+
+.card {
+  @apply bg-light rounded-xl p-4 flex flex-col gap-3 cursor-pointer transition-colors;
+}
+
+.card:hover {
+  @apply bg-lighter;
+}
+
+.top {
+  @apply flex items-start justify-between gap-3;
+}
+
+.title {
+  @apply text-heading font-medium text-base leading-snug;
+}
+
+.clockIcon {
+  @apply text-primary shrink-0 mt-0.5;
+}
+
+.meta {
+  @apply flex flex-col gap-1.5;
+}
+
+.metaRow {
+  @apply flex items-center gap-1.5 text-sm text-body;
+}
+
+.metaIcon {
+  @apply shrink-0 text-body;
+}
+
+.codename {
+  @apply text-primary;
+}
+
+.overdue {
+  @apply text-error;
+}
+
+.skeletonBar {
+  @apply bg-lighter rounded;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeletonTop {
+  @apply flex items-start justify-between gap-3;
+}
+
+.skeletonMeta {
+  @apply flex flex-col gap-1.5;
+}
+
+.skeletonMetaRow {
+  @apply flex items-center gap-1.5;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
